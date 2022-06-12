@@ -12,7 +12,7 @@ const header = () => {
   return (
     <Navbar bg='primary' expand='lg' variant='dark'>
       <Container>
-        <Navbar.Brand href='/'>NoteBoard</Navbar.Brand>
+        <Navbar.Brand href='/'>NOTEBOARD</Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto '>
