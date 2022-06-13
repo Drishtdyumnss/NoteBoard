@@ -13,7 +13,9 @@ const header = () => {
   return (
     <Navbar bg='primary' expand='lg' variant='dark'>
       <Container>
-        <Navbar.Brand href='/'>NOTEBOARD</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to='/'>NOTEBOARD</Link>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto '>
