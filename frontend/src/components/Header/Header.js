@@ -7,6 +7,7 @@ import {
   NavDropdown,
 } from 'react-bootstrap';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const header = () => {
   return (
@@ -26,7 +27,9 @@ const header = () => {
             </Form>
           </Nav>
           <Nav>
-            <Nav.Link href='/'>MyNotes</Nav.Link>
+            <Nav.Link>
+              <Link to='/myNotes'>MyNotes</Link>
+            </Nav.Link>
             <NavDropdown title='Profile' id='navbarScrollingDropdown'>
               <NavDropdown.Item href='#action3'>Profile</NavDropdown.Item>
               <NavDropdown.Divider />
