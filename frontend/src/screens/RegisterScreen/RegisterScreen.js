@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Form, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Loading from '../../components/Loading/Loading';
 import MainScreen from '../../components/MainScreen/MainScreen';
+import axios from 'axios';
 
 const RegisterScreen = () => {
   const [loading, setLoading] = useState();
@@ -14,10 +14,35 @@ const RegisterScreen = () => {
   const [message, setMessage] = useState();
   const [error, setError] = useState();
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== cnfpassword) {
       setMessage('Password do not match');
+    } else {
+      setMessage(null);
+      try {
+        const config = {
+          headers: {
+            'Content-type': 'application/json',
+          },
+        };
+
+        setLoading(true);
+        const { data } = await axios.post(
+          '/api/users',
+          {
+            name,
+            email,
+            password,
+          },
+          config
+        );
+        localStorage.setItem('userInfo', JSON.stringify(data));
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        setError('Already Exists');
+      }
     }
     // console.log(name, email, password, cnfpassword);
   };
