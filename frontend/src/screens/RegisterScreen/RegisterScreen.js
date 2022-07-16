@@ -1,54 +1,39 @@
-import React, { useState } from 'react';
-import { Button, Form, Row, Col } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { register } from '../../actions/userActions';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Loading from '../../components/Loading/Loading';
 import MainScreen from '../../components/MainScreen/MainScreen';
-import axios from 'axios';
 
 const RegisterScreen = () => {
-  const [loading, setLoading] = useState();
-  const [email, setEmail] = useState();
   const [name, setName] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [cnfpassword, setCnfpassword] = useState();
   const [message, setMessage] = useState();
-  const [error, setError] = useState();
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userRegister = useSelector((state) => state.userRegister);
+
+  const { loading, error, userInfo } = userRegister;
+
+  useEffect(() => {
+    if (userInfo) navigate('/mynotes');
+  });
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (password !== cnfpassword) {
-      setMessage('Password do not match');
-    } else {
-      setMessage(null);
-      try {
-        const config = {
-          headers: {
-            'Content-type': 'application/json',
-          },
-        };
-
-        setLoading(true);
-        const { data } = await axios.post(
-          '/api/users',
-          {
-            name,
-            email,
-            password,
-          },
-          config
-        );
-        localStorage.setItem('userInfo', JSON.stringify(data));
-        setLoading(false);
-      } catch (err) {
-        setLoading(false);
-        setError('Already Exists');
-      }
+    if (password !== cnfpassword) setMessage('Passwords do not match');
+    else {
+      dispatch(register(name, email, password, 'this is pic'));
     }
-    // console.log(name, email, password, cnfpassword);
   };
 
   return (
-    <MainScreen title='LOGIN'>
+    <MainScreen title='REGISTER'>
       <div className='loginContainer'>
         {error && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
         {loading && <Loading />}
