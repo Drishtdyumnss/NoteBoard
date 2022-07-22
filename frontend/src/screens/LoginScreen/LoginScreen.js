@@ -31,8 +31,8 @@ const LoginScreen = () => {
   return (
     <MainScreen title='LOGIN'>
       <div className='loginContainer'>
-        {loading && <Loading />}
         {error && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
+        {loading && <Loading />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId='formBasicEmail'>
             <Form.Label>Email address</Form.Label>

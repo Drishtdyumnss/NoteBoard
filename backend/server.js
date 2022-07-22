@@ -12,10 +12,6 @@ connectDB();
 const app = express();
 app.use(express.json());
 
-// app.get('/', (req, res) => {
-//   res.send('Running');
-// });
-
 app.use('/api/users', userRoutes);
 app.use('/api/notes', noteRoutes);
 
